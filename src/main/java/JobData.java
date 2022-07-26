@@ -54,7 +54,8 @@ public class JobData {
         loadData();
 
         // Bonus mission; normal version returns allJobs
-        return new ArrayList<>(allJobs);
+        ArrayList<HashMap<String, String>> copyAllJobs = new ArrayList<>(allJobs);
+        return copyAllJobs;
     }
 
     /**
@@ -79,7 +80,7 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toUpperCase().contains(value.toUpperCase())) {
                 jobs.add(row);
             }
         }
@@ -97,9 +98,20 @@ public class JobData {
 
         // load data, if not already loaded
         loadData();
+       // System.out.println("0\n3\nnew YORk\nx");
 
-        // TODO - implement this method
-        return null;
+        ArrayList <HashMap<String, String>> jobs = new ArrayList<>();
+
+        for (HashMap<String, String> jobItem: allJobs){
+            for (String item: jobItem.values()){
+                if (item.toUpperCase().contains(value.toUpperCase()) && !jobs.contains(jobItem) ) {
+                    jobs.add(jobItem);
+                }
+            }
+        }
+        return jobs;
+
+
     }
 
     /**
