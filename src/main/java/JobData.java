@@ -93,23 +93,24 @@ public class JobData {
      * @param value The search term to look for
      * @return      List of all jobs with at least one field containing the value
      */
-    public static ArrayList<HashMap<String, String>> findByValue(String value) {
+    public static ArrayList<HashMap<String,String>> findByValue(String value) {
 
-        // load data, if not already loaded
         loadData();
 
-        ArrayList <HashMap<String, String>> jobs = new ArrayList<>();
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
-        for (HashMap<String, String> jobItem: allJobs){
-            for (String item: jobItem.values()){
-                if (item.toUpperCase().contains(value) && !jobs.contains(jobItem)){
-                    jobs.add(jobItem);
+        for (HashMap<String, String> row : allJobs) {
+
+            for (String entry : row.values()) {
+                if (entry.toLowerCase().contains(value.toLowerCase())) {
+                    if (!jobs.contains(value)) {
+                        jobs.add(row);
+                        break;
+                    }
                 }
             }
         }
         return jobs;
-
-
     }
 
     /**
